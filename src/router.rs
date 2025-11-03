@@ -1,6 +1,7 @@
-use std::sync::{Arc, LazyLock};
+use std::sync::LazyLock;
 
-use crate::db_manager::{DatabaseAccess, DatabaseProvider, SqliteDatabase};
+use crate::db_manager::DatabaseAccess;
+use crate::db_provider::SqliteDatabase;
 use crate::models::QueryParam;
 use axum::{
     extract::{Path, Query},
