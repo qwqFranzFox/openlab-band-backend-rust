@@ -4,6 +4,7 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+async-trait = "0.1.89"
 axum = { version = "0.8.6", features = ["tokio"] }
 chrono = "0.4.42"
 env_logger = "0.11.8"

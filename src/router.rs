@@ -1,6 +1,7 @@
-use std::sync::{Arc, LazyLock};
+use std::sync::LazyLock;
 
-use crate::db_manager::{DatabaseAccess, DatabaseProvider, SqliteDatabase};
+use crate::db_manager::DatabaseAccess;
+use crate::db_provider::SqliteDatabase;
 use crate::models::QueryParam;
 use axum::{
     extract::{Path, Query},
@@ -12,8 +13,8 @@ use tracing::error;
 
 type APIResp = Response<axum::body::Body>;
 
-static DB_MANAGER: LazyLock<DatabaseAccess<SqliteDatabase>> = LazyLock::new(|| {
-    return DatabaseAccess::new(SqliteDatabase::new(None));
+static DB_MANAGER: LazyLock<DatabaseAccess> = LazyLock::new(|| {
+    return DatabaseAccess::new(Box::new(SqliteDatabase::new(None)));
 });
 pub async fn get_bands(Query(query): QueryParam) -> APIResp {
     if let Some(name) = query.get("name") {
